@@ -14,7 +14,7 @@ def move_and_rename(input_path,output_path,data_type,debuglog='logs/debuglog.txt
     conv = pd.read_csv(input_path, sep = '\t', header = 0)
     for i in range(conv.shape[0]):
         if data_type == 'longread':
-            original_file = conv.iloc[i][2]
+            original_file = conv.iloc[i][2].strip()
             if not original_file.endswith(suffixes):
                 print(f'Unexpected file format in {original_file}')
                 quit(1)
@@ -24,15 +24,16 @@ def move_and_rename(input_path,output_path,data_type,debuglog='logs/debuglog.txt
                 subprocess.call(command,stdout=debug,stderr=debug)
                 _ = debug.write(' '.join(command) + '\n')
         if data_type == 'shortread':
-            search_str = conv.iloc[i][2].replace('*','_*')
+            search_str = conv.iloc[i][2].replace('*','_*').strip()
             # the conversion files have file names where a * immediately follows a number, which creates ambiguity between 1 and 10 and such
             # ex: ONT_Sequencing/Lojek_D5A_polished_results/Lojek_D5A_1*.fastq.gz and ONT_Sequencing/Lojek_D5A_polished_results/Lojek_D5A_10*.fastq.gz
             # this search_str line will need to be changed if the conversion files are formatted differently
+            # note that .strip() is needed here, otherwise there can be issues with glob
             flist = sorted(glob.glob(search_str))
             if len(flist) != 2:
                 print(f'Error while searching for files at path {conv.iloc[i][2]}')
                 quit(1)
-            original_file_r1,original_file_r2 = sorted(glob.glob(search_str))
+            original_file_r1,original_file_r2 = flist
             # file paths for illumina data will contain * where R1 and R2 would be, in addition to other idiosyncracies
             # sorting the list should ensure that R1 and R2 are assigned correctly
             if '_R1' not in original_file_r1 or '_R2' not in original_file_r2 or not (original_file_r1.endswith(suffixes) and original_file_r2.endswith(suffixes)):
