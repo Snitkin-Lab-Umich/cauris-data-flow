@@ -8,9 +8,9 @@ def find_pass(final_qc_file):
     sample_pass,sample_fail = [],[]
     qc_df = pd.read_csv(final_qc_file, sep = '\t', header = 0)
     for i in range(qc_df.shape[0]):
-        if qc_df.iloc[i]['QC_EVALUTATION'] == 'PASS':
+        if qc_df.iloc[i]['QC_EVALUATION'] == 'PASS':
             sample_pass.append((qc_df.iloc[i]['Sample'],qc_df.iloc[i]['Filename']))
-        elif qc_df.iloc[i]['QC_EVALUTATION'] == 'FAIL':
+        elif qc_df.iloc[i]['QC_EVALUATION'] == 'FAIL':
             sample_fail.append((qc_df.iloc[i]['Sample'],qc_df.iloc[i]['Filename']))
     return([sample_pass,sample_fail])
 
