@@ -36,17 +36,16 @@ def main():
     args.input,args.output = [os.path.abspath(x)+'/' for x in [args.input,args.output]]
     os.chdir(args.input)
     if not args.keep_training:
-        print('remove training files')
         remove_training_files()
     #print(' '.join(['mv',args.input,args.output + args.name]))
     #subprocess.call(['mv',args.input,args.output + args.name])
     move_and_copy(results_dir=args.input,output_dir=args.output,output_name=args.name)
     
 def remove_training_files():
-    subprocess.call(['rm','-f','funannotate/*/training/left.fq.gz'])
-    subprocess.call(['rm','-f','funannotate/*/training/right.fq.gz'])
-    subprocess.call(['rm','-r','-f','funannotate/*/training/trimmomatic/'])
-    subprocess.call(['rm','-r','-f','funannotate/*/training/trinity_gg/'])
+    subprocess.call('rm -f funannotate/*/training/left.fq.gz',shell=True)
+    subprocess.call('rm -f funannotate/*/training/right.fq.gz',shell=True)
+    subprocess.call('rm -r -f funannotate/*/training/trimmomatic/',shell=True)
+    subprocess.call('rm -r -f funannotate/*/training/trinity_gg/',shell=True)
 
 def move_and_copy(results_dir,output_dir,output_name):
     new_results_dir = output_dir + output_name + '/'
