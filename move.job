@@ -4,11 +4,11 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --export=ALL
 #SBATCH --partition=standard
-#SBATCH --account=esnitkin0
+#SBATCH --account=esnitkin1
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=5G
-#SBATCH --time=05:00:00
+#SBATCH --time=15:00:00
 
 
 #python rename_and_move.py --input /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/metadata/sample_lookup/UM_illumina_sample_lookup.txt \
@@ -27,8 +27,42 @@
 #-q 2025_01_29_UM_illumina_QCD_Results/multiqc/2025-01-29_UM_illumina_final_qc_summary.tsv \
 #-d 2025_01_29_UM_illumina_QCD_Results
 
-python move_files_longread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/ONT/2025_01_29_UM_ONT/ \
--q 2025_01_29_UM_ONT_QCD_Results/multiqc/2025-01-31_UM_ONT_final_qc_summary.tsv \
--d 2025_01_29_UM_ONT_QCD_Results
+#python move_files_longread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/ONT/2025_01_29_UM_ONT/ \
+#-q 2025_01_29_UM_ONT_QCD_Results/multiqc/2025-01-31_UM_ONT_final_qc_summary.tsv \
+#-d 2025_01_29_UM_ONT_QCD_Results
 
 #cp -r /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/ONT/2025_01_29_UM_ONT/2025_01_29_UM_ONT_QCD_Results/ /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/nanofunQC/results/
+
+#python rename_and_move.py --input /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/metadata/sample_lookup/chicago_illumina_sample_lookup_V2.txt \
+#--project /nfs/turbo/umms-esnitkin/Project_Cauris/ --batch 2025_02_05_chicago_illumina --type shortread --debug logs/chicago_illumina_debug.txt
+
+# chicago ONT samples
+
+#python rename_and_move.py --input /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/metadata/sample_lookup/chicago_ONT_sample_lookup.txt \
+#--project /nfs/turbo/umms-esnitkin/Project_Cauris/ --batch 2025_02_05_chicago_ONT --type longread --debug logs/chicago_ONT_debug.txt
+
+#python cleanup_move_qcd.py -i /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/nanofunQC/results/2025-02-05_chicago_ONT/ \
+#-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/ONT/2025_02_05_chicago_ONT/ -n 2025_02_05_chicago_ONT_QCD_Results
+
+#python move_files_longread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/ONT/2025_02_05_chicago_ONT/ \
+#-q 2025_02_05_chicago_ONT_QCD_Results/multiqc/2025-02-05_chicago_ONT_final_qc_summary_EDIT.tsv \
+#-d 2025_02_05_chicago_ONT_QCD_Results
+
+# chicago illumina samples 
+
+#python cleanup_move_qcd.py -i /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/funQCD/results/2025-02-05_chicago_illumina/ \
+#-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025_02_05_chicago_illumina/ -n 2025_02_05_chicago_illumina_QCD_Results
+
+# python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025_02_05_chicago_illumina/ \
+# -q 2025_02_05_chicago_illumina_QCD_Results/multiqc/2025-02-05_chicago_illumina_final_qc_summary_EDIT.tsv \
+# -d 2025_02_05_chicago_illumina_QCD_Results
+
+# UM hybrid samples
+
+python cleanup_move_hybrid.py -i /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/nanofunsake/results/2025_01_29_hybrid/ \
+-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/assembly/hybrid/ -n 2025_01_29_UM_hybrid
+
+# chicago hybrid samples
+
+#python cleanup_move_hybrid.py -i /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/nanofunsake/results/2025_02_05_chicago_hybrid/ \
+#-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/assembly/hybrid/ -n 2025_02_05_chicago_hybrid
