@@ -57,7 +57,7 @@ def move_and_copy(results_dir,output_dir,output_name):
     command2 = f'cp -rib {new_results_dir}polypolish/*/ {output_dir}polypolish/'
     subprocess.run(command2,shell=True)
     # this removes the large and unnecessary files present in the polypolish output
-    command22 = f'rm {output_dir}polypolish/*.sam'
+    command22 = f'rm {output_dir}polypolish/*/*.sam'
     subprocess.run(command22,shell=True)
     command3 = f'cp -rib {new_results_dir}quast/*/ {output_dir}quast/'
     subprocess.run(command3,shell=True)
