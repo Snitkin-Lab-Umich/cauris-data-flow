@@ -37,8 +37,8 @@ def main():
     os.chdir(args.input)
     if not args.keep_training:
         remove_training_files()
-    #print(' '.join(['mv',args.input,args.output + args.name]))
-    #subprocess.call(['mv',args.input,args.output + args.name])
+    print(' '.join(['mv',args.input,args.output + args.name]))
+    subprocess.call(['mv',args.input,args.output + args.name])
     move_and_copy(results_dir=args.input,output_dir=args.output,output_name=args.name)
     
 def remove_training_files():
@@ -61,13 +61,14 @@ def move_and_copy(results_dir,output_dir,output_name):
     subprocess.run(command22,shell=True)
     command3 = f'cp -rib {new_results_dir}quast/*/ {output_dir}quast/'
     subprocess.run(command3,shell=True)
-    command4 = f'cp -rib {new_results_dir}funannotate/*/ {output_dir}funannotate/'
-    subprocess.run(command4,shell=True)
-    print(command1)
-    print(command2)
-    print(command22)
-    print(command3)
-    print(command4)
+    for dirname in os.listdir(f'{new_results_dir}funannotate/'):
+        move_funannotate_annotate(dirname,new_results_dir,output_dir)
+
+def move_funannotate_annotate(dirname,new_results_dir,output_dir):
+    original_annotate_dir = f'{new_results_dir}funannotate/{dirname}/annotate_results/'
+    new_annotate_dir = f'{output_dir}funannotate/{dirname}/annotate_results/'
+    subprocess.run(['mkdir','-p',new_annotate_dir])
+    subprocess.run(f'cp -rib {original_annotate_dir}* {new_annotate_dir}',shell=True)
 
 if __name__ == "__main__":
     main()

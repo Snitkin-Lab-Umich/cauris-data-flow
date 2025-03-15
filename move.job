@@ -59,8 +59,8 @@
 
 # UM hybrid samples
 
-#python cleanup_move_hybrid.py -i /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/nanofunsake/results/2025_01_29_hybrid/ \
-#-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/assembly/hybrid/ -n 2025_01_29_UM_hybrid
+# python cleanup_move_hybrid.py -i /scratch/esnitkin_root/esnitkin0/jjhale/2025_01_29_pipline_test_v1/nanofunsake/results/2025_01_29_hybrid/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/assembly/hybrid/ -n 2025_01_29_UM_hybrid
 
 # chicago hybrid samples
 
