@@ -84,12 +84,12 @@ def move_all(batch_dir,qc_file,qcd_dir,debuglog = 'logs/debug.txt'):
 
     # move failed samples out of raw reads
     with open('failed_samples.txt','a') as failed_samples_log:
-        for sample,filename in sample_fail:
-            filename_r1 = filename
-            if '_R1' not in filename_r1:
-                print(f'Unexpected file name for f{filename_r1}')
+        for sample,qc_filename in sample_fail:
+            filename_r1,filename_r2 = sample + '_R1.fastq.gz', sample + '_R2.fastq.gz'
+            if filename_r1 != qc_filename:
+                print(f'Unexpected file name for f{filename_r1} (expected {qc_filename})')
                 quit(1)
-            filename_r2 = filename_r1.replace('_R1','_R2')
+            #filename_r2 = filename_r1.replace('_R1','_R2')
             # move raw reads
             move_illumina(
                 file1=filename_r1,file2=filename_r2,
@@ -106,7 +106,7 @@ def move_all(batch_dir,qc_file,qcd_dir,debuglog = 'logs/debug.txt'):
             if filename_r1 != qc_filename:
                 print(f'Unexpected file name for f{filename_r1} (expected {qc_filename})')
                 quit(1)
-            filename_r2 = filename_r1.replace('_R1','_R2')
+            #filename_r2 = filename_r1.replace('_R1','_R2')
             move_illumina(
                 file1=filename_r1,file2=filename_r2,
                 source_dir='raw_fastq/',dest_dir='passed_qc_samples/',debuglog = debuglog)

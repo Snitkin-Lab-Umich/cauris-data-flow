@@ -137,7 +137,7 @@ def move_all(batch_dir,qc_file,qcd_dir,debuglog = 'logs/debug.txt'):
                     if not os.path.isdir(dest_dir):
                         subprocess.call(['mkdir','-p',dest_dir],stdout=debug,stderr=debug)
                         _ = debug.write(' '.join(['mkdir','-p',dest_dir]) + '\n')
-                    move_single(file1=fname,source_dir=source_dir,dest_dir=dest_dir,action='cp',debuglog=debuglog)                    
+                    move_single(file1=fname,source_dir=source_dir,dest_dir=dest_dir,action='cp',debuglog=debuglog)
 
 
 def main():
@@ -145,8 +145,8 @@ def main():
     parser.add_argument(
         '--batch','-b',type=str,
         help='''Provide a path to the directory for this batch of Illumina sequencing data. 
-        This should be in the project directory, under Sequence_data/illumina_fastq. Use an absolute path if possible.
-        Example: /nfs/turbo/umms-esnitkin/Project_MDHHS_genomics/Sequence_data/illumina_fastq/2024-09-26_Plate1-to-Plate15/
+        This should be in the project directory, under Sequence_data/ONT. Use an absolute path if possible.
+        Example: /nfs/turbo/umms-esnitkin/Project_MDHHS_genomics/Sequence_data/ONT/2024-09-26_Plate1-to-Plate15/
         ''')
     parser.add_argument(
         '--qc_file','-q',type=str,
