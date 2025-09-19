@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=5G
-#SBATCH --time=20:00:00
+#SBATCH --time=10:00:00
 
 
 #python rename_and_move.py --input /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/metadata/sample_lookup/UM_illumina_sample_lookup.txt \
@@ -98,15 +98,72 @@
 # t40 short read samples
 
 # manually move raw data to the correct folder
-mkdir -p /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/raw_fastq/
-mv /scratch/esnitkin_root/esnitkin0/jjhale/public/c_auris_ncbi_pathogen/sra_t40_03-19-25/*.fastq.gz /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/raw_fastq/
+# mkdir -p /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/raw_fastq/
+# mv /scratch/esnitkin_root/esnitkin0/jjhale/public/c_auris_ncbi_pathogen/sra_t40_03-19-25/*.fastq.gz /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/raw_fastq/
 
-python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-04-01_sra_t40_v1/funQCD/results/2025-03-28_ncbiPathogen_t40_v1/ \
--o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/ -n 2025-03-28_ncbiPathogen_t40_v1_QCD_Results
+# python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-04-01_sra_t40_v1/funQCD/results/2025-03-28_ncbiPathogen_t40_v1/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/ -n 2025-03-28_ncbiPathogen_t40_v1_QCD_Results
 
-python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/ \
--q 2025-03-28_ncbiPathogen_t40_v1_QCD_Results/multiqc/2025-03-28_ncbiPathogen_t40_v1_final_qc_summary.tsv \
--d 2025-03-28_ncbiPathogen_t40_v1_QCD_Results
+# python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-03-28_ncbiPathogen_t40_v1/ \
+# -q 2025-03-28_ncbiPathogen_t40_v1_QCD_Results/multiqc/2025-03-28_ncbiPathogen_t40_v1_final_qc_summary.tsv \
+# -d 2025-03-28_ncbiPathogen_t40_v1_QCD_Results
+
+# UM additional samples, short read
+
+#python rename_and_move.py --input /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/metadata/sample_lookup/UM_illumina_sample_lookup_AdditionalSamples1.txt \
+#--project /nfs/turbo/umms-esnitkin/Project_Cauris/ --batch 2025_07_15_UM_illumina_AdditionalSamples1 --type shortread --debug logs/UM_illumina_debug.txt
+
+#python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/results/2025_07_15_UM_illumina_AdditionalSamples1/ \
+#-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025_07_15_UM_illumina_AdditionalSamples1/ -n 2025_07_15_UM_illumina_AdditionalSamples1_QCD_Results
+
+#python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025_07_15_UM_illumina_AdditionalSamples1/ \
+#-q 2025_07_15_UM_illumina_AdditionalSamples1_QCD_Results/multiqc/2025_07_15_UM_illumina_AdditionalSamples1_final_qc_summary.tsv \
+#-d 2025_07_15_UM_illumina_AdditionalSamples1_QCD_Results
+
+# UM additional samples, hybrid
+
+#python cleanup_move_hybrid.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/nanofunsake/results/2025_07_17_UM_AdditionalSamples1/ \
+#-o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/assembly/hybrid/ -n 2025_07_17_UM_hybrid_additional1
+
+# France samples, first four
+
+# manually move raw data to the correct folder
+# mkdir -p /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_france_first4/raw_fastq/
+# mv /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/france/france_first4_2025-08-06/*.fastq.gz /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_france_first4/raw_fastq/
+
+# python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funqcd2/funQCD/results/2025-08-05_france_first4/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_france_first4/ -n 2025-08-05_france_first4_QCD_Results
+
+# python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_france_first4/ \
+# -q 2025-08-05_france_first4_QCD_Results/multiqc/2025-08-05_france_first4_final_qc_summary.tsv \
+# -d 2025-08-05_france_first4_QCD_Results
+
+# MDHHS samples, first sixty
+
+# manually move raw data to the correct folder
+# mkdir -p /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_mdhhs_first_60/raw_fastq/
+# mv /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/mdhhs_public/mdhhs_first_60/*.fastq.gz /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_mdhhs_first_60/raw_fastq/
+
+# python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/results/2025-08-05_mdhhs_first_60/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_mdhhs_first_60/ -n 2025-08-05_mdhhs_first_60_QCD_Results
+
+# python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/2025-08-05_mdhhs_first_60/ \
+# -q 2025-08-05_mdhhs_first_60_QCD_Results/multiqc/2025-08-05_mdhhs_first_60_final_qc_summary.tsv \
+# -d 2025-08-05_mdhhs_first_60_QCD_Results
 
 
+
+# full MDHHS samples, first batch
+
+# use the new script to copy the raw data over
+python rename_and_move_public.py --input_path /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/mdhhs_public/mdhhs_all_2025-08-06 \
+--project /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina --batch 2025-08-11_mdhhs_all_samples_batch1 \
+--samples /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/config/samples.csv --debug logs/test1.txt
+
+python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/results/2025-08-11_mdhhs_all/ \
+-o /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_samples_batch1/ -n 2025-08-11_mdhhs_all_samples_batch1_QCD_Results
+
+python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_samples_batch1/ \
+-q 2025-08-11_mdhhs_all_samples_batch1_QCD_Results/multiqc/2025-08-11_mdhhs_all_final_qc_summary.tsv \
+-d 2025-08-11_mdhhs_all_samples_batch1_QCD_Results
 

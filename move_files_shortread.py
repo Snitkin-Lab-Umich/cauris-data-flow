@@ -2,6 +2,7 @@ import pandas as pd
 import subprocess
 import os
 import argparse
+import pandas as pd
 
 def find_pass(final_qc_file):
     # take the final QC summary file and return the names of the samples that passed QC
@@ -36,6 +37,14 @@ def move_single(file1,source_dir,dest_dir,action='mv',debuglog = 'logs/debug.txt
             _ = debug.write(f'ERROR: Failed to move {file1} to {dest_dir}\n')
 
 def add_to_master(qc_file,master_file):
+    with open(qc_file, 'r') as fhin, open(master_file, 'r') as fhout:
+        master_df = pd.read_csv(fhout, sep='\t')
+        new_df = pd.read_csv(fhin, sep='\t')
+        # append new_df to master_df
+        master_df2 = pd.concat([master_df, new_df], ignore_index=True)
+    master_df2.to_csv(master_file, sep='\t', index=False)
+
+def add_to_master_old(qc_file,master_file):
     with open(qc_file, 'r') as fhin, open(master_file, 'a') as fhout:
         next(fhin)
         for line in fhin:
