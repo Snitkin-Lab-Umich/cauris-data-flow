@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=5G
-#SBATCH --time=10:00:00
+#SBATCH --time=15:00:00
 
 
 #python rename_and_move.py --input /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/metadata/sample_lookup/UM_illumina_sample_lookup.txt \
@@ -156,14 +156,60 @@
 # full MDHHS samples, first batch
 
 # use the new script to copy the raw data over
-python rename_and_move_public.py --input_path /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/mdhhs_public/mdhhs_all_2025-08-06 \
---project /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina --batch 2025-08-11_mdhhs_all_samples_batch1 \
---samples /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/config/samples.csv --debug logs/test1.txt
+# python rename_and_move_public.py --input_path /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/mdhhs_public/mdhhs_all_2025-08-06 \
+# --project /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina --batch 2025-08-11_mdhhs_all_samples_batch1 \
+# --samples /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/config/samples.csv --debug logs/test1.txt
 
-python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/results/2025-08-11_mdhhs_all/ \
--o /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_samples_batch1/ -n 2025-08-11_mdhhs_all_samples_batch1_QCD_Results
+# python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/funQCD/results/2025-08-11_mdhhs_all/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_samples_batch1/ -n 2025-08-11_mdhhs_all_samples_batch1_QCD_Results
 
-python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_samples_batch1/ \
--q 2025-08-11_mdhhs_all_samples_batch1_QCD_Results/multiqc/2025-08-11_mdhhs_all_final_qc_summary.tsv \
--d 2025-08-11_mdhhs_all_samples_batch1_QCD_Results
+# python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_samples_batch1/ \
+# -q 2025-08-11_mdhhs_all_samples_batch1_QCD_Results/multiqc/2025-08-11_mdhhs_all_final_qc_summary.tsv \
+# -d 2025-08-11_mdhhs_all_samples_batch1_QCD_Results
+
+# full MDHHS samples, second batch
+
+# use the new script to copy the raw data over
+# python rename_and_move_public.py --input_path /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/mdhhs_public/mdhhs_all_2025-08-06 \
+# --project /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina --batch 2025-08-11_mdhhs_all_batch2_400 \
+# --samples /nfs/turbo/umms-tromeara/jjhale/mdhhs_batch2/funQCD/config/samples.csv --debug logs/mdhhs_batch2.txt
+
+# python cleanup_move_qcd.py -i /nfs/turbo/umms-tromeara/jjhale/mdhhs_batch2/funQCD/results/2025-08-11_mdhhs_all_batch2_400/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_batch2_400/ -n 2025-08-11_mdhhs_all_batch2_400_QCD_Results
+
+# use an rsync command to resume the interrupted move command above
+#rsync -av --progress /nfs/turbo/umms-tromeara/jjhale/mdhhs_batch2/funQCD/results/2025-08-11_mdhhs_all_batch2_400/ /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_batch2_400/2025-08-11_mdhhs_all_batch2_400_QCD_Results/
+#rsync -rtv --progress --exclude 'busco/' \
+#/nfs/turbo/umms-tromeara/jjhale/mdhhs_batch2/funQCD/results/2025-08-11_mdhhs_all_batch2_400/ /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_batch2_400/2025-08-11_mdhhs_all_batch2_400_QCD_Results/
+
+#python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_batch2_400/ \
+#-q 2025-08-11_mdhhs_all_batch2_400_QCD_Results/multiqc/2025-08-11_mdhhs_all_batch2_400_final_qc_summary.tsv \
+#-d 2025-08-11_mdhhs_all_batch2_400_QCD_Results
+
+
+# full MDHHS samples, third batch
+
+# use the new script to copy the raw data over
+# python rename_and_move_public.py --input_path /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-17_public/mdhhs_public/mdhhs_all_2025-08-06 \
+# --project /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina --batch 2025-08-11_mdhhs_all_batch3_final_400 \
+# --samples /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/mdhhs_batch3/funQCD/config/samples_last_400.csv --debug logs/mdhhs_batch3.txt
+
+# python cleanup_move_qcd.py -i /nfs/turbo/umms-esnitkin/Project_Cauris/Analysis/2024_Pipeline_testing/2025-07-15_four_additional_um/mdhhs_batch3/funQCD/results/2025-08-11_mdhhs_all_batch3_final_400/ \
+# -o /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_batch3_final_400/ -n 2025-08-11_mdhhs_all_batch3_final_400_QCD_Results
+
+# python move_files_shortread.py -b /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/2025-08-11_mdhhs_all_batch3_final_400/ \
+# -q 2025-08-11_mdhhs_all_batch3_final_400_QCD_Results/multiqc/2025-08-11_mdhhs_all_batch3_final_400_final_qc_summary.tsv \
+# -d 2025-08-11_mdhhs_all_batch3_final_400_QCD_Results
+
+
+# test out the script to move files between the two results directories
+
+python move_files_public_to_cauris.py --source_dir /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/assembly/illumina/ \
+--dest_dir /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/assembly/illumina/ \
+--source_qc /nfs/turbo/umms-esnitkin/Project_Cauris/Public_datasets/2025-07-10_MDHHS/illumina/master_qc_summary.csv \
+--dest_qc /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/master_qc_summary.csv \
+--temp_qc /nfs/turbo/umms-esnitkin/Project_Cauris/Sequence_data/illumina_fastq/master_qc_summary_ADDED_MDHHS_SAMPLES.csv
+
+
+
 

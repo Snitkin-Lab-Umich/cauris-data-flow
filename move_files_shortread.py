@@ -2,7 +2,6 @@ import pandas as pd
 import subprocess
 import os
 import argparse
-import pandas as pd
 
 def find_pass(final_qc_file):
     # take the final QC summary file and return the names of the samples that passed QC
@@ -96,7 +95,7 @@ def move_all(batch_dir,qc_file,qcd_dir,debuglog = 'logs/debug.txt'):
         for sample,qc_filename in sample_fail:
             filename_r1,filename_r2 = sample + '_R1.fastq.gz', sample + '_R2.fastq.gz'
             if filename_r1 != qc_filename:
-                print(f'Unexpected file name for f{filename_r1} (expected {qc_filename})')
+                print(f'Unexpected file name for {filename_r1} (expected {qc_filename})')
                 quit(1)
             #filename_r2 = filename_r1.replace('_R1','_R2')
             # move raw reads
