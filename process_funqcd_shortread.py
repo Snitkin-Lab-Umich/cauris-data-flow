@@ -52,7 +52,7 @@ def add_funqcd_to_master(funqcd_dir, master_dir, master_qc_filename = 'master_qc
             print(f'Columns in {master_qc_filename}: {master_qc_df.columns.tolist()}')
             print(f'Columns in {new_qc_filename}: {funqcd_qc_df.columns.tolist()}')
             quit(1)
-    
+
     # take a directory of funQCD outputs and update the dataset present in master_dir
     # move the funqcd output to master_dir
     funqcd_dest_dir = os.path.join(master_dir, funqcd_batch_name)
@@ -65,7 +65,7 @@ def add_funqcd_to_master(funqcd_dir, master_dir, master_qc_filename = 'master_qc
     with open(debuglog,'a') as debug:
         _ = debug.write(f'logs for {funqcd_batch_name}\n')
         # exclude specific intermediate files and directories when moving funqcd_dir to funqcd_dest
-        exclude_list = ['run_saccharomycetes_odb10','K21','K33','K55','K77','pipeline_state','tmp','annotate_misc','repeatmasker']
+        exclude_list = ['run_saccharomycetes_odb10','K21','K33','K55','K77','pipeline_state','tmp','annotate_misc','repeatmasker','downsample','eggnog','interproscan']
         cmd1 = ['rsync','-r']
         for exclude in exclude_list:
             cmd1.append('--exclude=' + exclude)
